@@ -151,6 +151,12 @@ loadLesson();
 
 document.getElementById("search-btn").addEventListener("click", () => {
   const inputValue = document.getElementById("search-input").value;
-  fetch("")
-
+  fetch("https://openapi.programming-hero.com/api/words/all")
+    .then((res) => res.json())
+    .then((data) => {
+      const searchElement = data.data;
+      const filterSearchElement= searchElement.filter(x=>x.word.toLowerCase().includes(inputValue.trim()))
+      // console.log(filterSearchElement)
+      displayWord(filterSearchElement)
+    });
 });
