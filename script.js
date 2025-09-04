@@ -28,15 +28,7 @@ const synonames = (sNames) => {
   // console.log(sName.join(""));
   return sName.join(" ");
 };
-// id: 5;
-// level: 1;
-// meaning: "আগ্রহী";
-// partsOfSpeech: "adjective";
-// points: 1;
-// pronunciation: "ইগার";
-// sentence: "The kids were eager to open their gifts.";
-// synonyms: (3)[("enthusiastic", "excited", "keen")];
-// word: "Eager";
+
 const displayWordDetails = (datas) => {
   const wordMOdalContainer = document.getElementById("my_modal_5");
 
@@ -150,13 +142,17 @@ const displayLesson = (lessons) => {
 loadLesson();
 
 document.getElementById("search-btn").addEventListener("click", () => {
+  lessongBtnremove();
+
   const inputValue = document.getElementById("search-input").value;
   fetch("https://openapi.programming-hero.com/api/words/all")
     .then((res) => res.json())
     .then((data) => {
       const searchElement = data.data;
-      const filterSearchElement= searchElement.filter(x=>x.word.toLowerCase().includes(inputValue.trim()))
+      const filterSearchElement = searchElement.filter((x) =>
+        x.word.toLowerCase().includes(inputValue.trim())
+      );
       // console.log(filterSearchElement)
-      displayWord(filterSearchElement)
+      displayWord(filterSearchElement);
     });
 });
