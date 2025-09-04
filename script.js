@@ -5,6 +5,19 @@ const loadLesson = () => {
     .then((data) => displayLesson(data.data));
 };
 
+const spinbar=(situation)=>{
+  // const spinElemnet=
+  if(situation==true){
+    
+   document.getElementById("spining").classList.remove("hidden");
+    document.getElementById("word-container").classList.add("hidden");
+  }
+  else{
+    document.getElementById("spining").classList.add("hidden");
+   document.getElementById("word-container").classList.remove("hidden");
+  }
+}
+
 const loadWordDetails = async (id) => {
   const urlOfWordDetails = `https://openapi.programming-hero.com/api/word/${id}`;
   const response = await fetch(urlOfWordDetails);
@@ -12,6 +25,11 @@ const loadWordDetails = async (id) => {
   displayWordDetails(data.data);
 };
 
+const synonames = (sNames) => {
+  const sName = sNames.map((x) => `<span class="btn">${x}</span>`);
+  // console.log(sName.join(""));
+  return sName.join(" ");
+}; 
 // id: 5;
 // level: 1;
 // meaning: "আগ্রহী";
@@ -22,13 +40,16 @@ const loadWordDetails = async (id) => {
 // synonyms: (3)[("enthusiastic", "excited", "keen")];
 // word: "Eager";
 const displayWordDetails = (datas) => {
+  
   const wordMOdalContainer = document.getElementById("my_modal_5");
 
   wordMOdalContainer.innerHTML = ` 
     
 <div class="modal-box space-y-3">
     <div class="">
-        <h1 class="font-semibold text-3xl">(  <i class="fa-solid fa-microphone-lines"></i>   :${datas.pronunciation})</h1>
+        <h1 class="font-semibold text-3xl">(  <i class="fa-solid fa-microphone-lines"></i>   :${
+          datas.pronunciation
+        })</h1>
     </div>
     <div>
         <h1 class="font-semibold text-2xl">Meaning</h1>
@@ -42,10 +63,9 @@ const displayWordDetails = (datas) => {
         <h1 class="font-semibold font-bangla text-2xl">সমার্থক শব্দ গুলো</h1>
         
     </div>
-    <div>
-      <p class="btn">afafdfafa</p>        
-      <p class="btn">afafdfafa</p>        
-      <p class="btn">afafdfafa</p>        
+    <div id="snameid">
+    ${synonames(datas.synonyms)}
+       
     </div>
     <div class="modal-action">
       <form method="dialog">
@@ -66,6 +86,7 @@ const lessongBtnremove = () => {
 };
 
 const wordLoad = (id) => {
+  spinbar(true)
   fetch(`https://openapi.programming-hero.com/api/level/${id}`)
     .then((res) => res.json())
     .then((datas) => {
@@ -75,6 +96,7 @@ const wordLoad = (id) => {
       lessongBtnremove();
       lessonBtn.classList.add("activeBtn");
     });
+   
 };
 
 // id: 90;
@@ -84,6 +106,7 @@ const wordLoad = (id) => {
 // word: "Water";
 // display words dynamicaly
 const displayWord = (words) => {
+  // spinbar(true);
   const wordContainer = document.getElementById("word-container");
   wordContainer.innerHTML = "";
   if (words.length == 0) {
@@ -96,6 +119,7 @@ const displayWord = (words) => {
     `;
   }
   words.forEach((word) => {
+    
     const wordCard = document.createElement("div");
     wordCard.innerHTML = `
          <div class="text-center mt-16 p-15 space-y-5 bg-white rounded-lg shadow-md">
@@ -118,7 +142,10 @@ const displayWord = (words) => {
     `;
     // console.log(word);
     wordContainer.append(wordCard);
+   
+
   });
+spinbar(false);
 };
 
 // lessong Load and lesson related other functionality here
@@ -134,3 +161,4 @@ const displayLesson = (lessons) => {
   }
 };
 loadLesson();
+ 
