@@ -5,18 +5,16 @@ const loadLesson = () => {
     .then((data) => displayLesson(data.data));
 };
 
-const spinbar=(situation)=>{
+const spinbar = (situation) => {
   // const spinElemnet=
-  if(situation==true){
-    
-   document.getElementById("spining").classList.remove("hidden");
+  if (situation == true) {
+    document.getElementById("spining").classList.remove("hidden");
     document.getElementById("word-container").classList.add("hidden");
-  }
-  else{
+  } else {
     document.getElementById("spining").classList.add("hidden");
-   document.getElementById("word-container").classList.remove("hidden");
+    document.getElementById("word-container").classList.remove("hidden");
   }
-}
+};
 
 const loadWordDetails = async (id) => {
   const urlOfWordDetails = `https://openapi.programming-hero.com/api/word/${id}`;
@@ -29,7 +27,7 @@ const synonames = (sNames) => {
   const sName = sNames.map((x) => `<span class="btn">${x}</span>`);
   // console.log(sName.join(""));
   return sName.join(" ");
-}; 
+};
 // id: 5;
 // level: 1;
 // meaning: "আগ্রহী";
@@ -40,7 +38,6 @@ const synonames = (sNames) => {
 // synonyms: (3)[("enthusiastic", "excited", "keen")];
 // word: "Eager";
 const displayWordDetails = (datas) => {
-  
   const wordMOdalContainer = document.getElementById("my_modal_5");
 
   wordMOdalContainer.innerHTML = ` 
@@ -86,7 +83,7 @@ const lessongBtnremove = () => {
 };
 
 const wordLoad = (id) => {
-  spinbar(true)
+  spinbar(true);
   fetch(`https://openapi.programming-hero.com/api/level/${id}`)
     .then((res) => res.json())
     .then((datas) => {
@@ -96,15 +93,8 @@ const wordLoad = (id) => {
       lessongBtnremove();
       lessonBtn.classList.add("activeBtn");
     });
-   
 };
 
-// id: 90;
-// level: 1;
-// meaning: "পানি";
-// pronunciation: "ওয়াটার";
-// word: "Water";
-// display words dynamicaly
 const displayWord = (words) => {
   // spinbar(true);
   const wordContainer = document.getElementById("word-container");
@@ -119,7 +109,6 @@ const displayWord = (words) => {
     `;
   }
   words.forEach((word) => {
-    
     const wordCard = document.createElement("div");
     wordCard.innerHTML = `
          <div class="text-center mt-16 p-15 space-y-5 bg-white rounded-lg shadow-md">
@@ -142,10 +131,8 @@ const displayWord = (words) => {
     `;
     // console.log(word);
     wordContainer.append(wordCard);
-   
-
   });
-spinbar(false);
+  spinbar(false);
 };
 
 // lessong Load and lesson related other functionality here
@@ -161,4 +148,9 @@ const displayLesson = (lessons) => {
   }
 };
 loadLesson();
- 
+
+document.getElementById("search-btn").addEventListener("click", () => {
+  const inputValue = document.getElementById("search-input").value;
+  fetch("")
+
+});
