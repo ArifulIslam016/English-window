@@ -1,4 +1,12 @@
+// sound function
+function pronounceWord(word) {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-EN"; // English
+  window.speechSynthesis.speak(utterance);
+}
+
 //All levels brins here
+
 const loadLesson = () => {
   fetch("https://openapi.programming-hero.com/api/levels/all")
     .then((res) => res.json())
@@ -117,7 +125,9 @@ const displayWord = (words) => {
                     <button onclick="loadWordDetails(${
                       word.id
                     })" class=" bg-[#1A91FF10] hover:bg-[#1A91FF80] p-4 rounded-sm"><i class="fa-solid fa-circle-info"></i></button>
-                    <button class=" bg-[#1A91FF10] hover:bg-[#1A91FF80] p-4 rounded-sm"><i class="fa-solid fa-volume-high"></i></button>
+                    <button onclick="pronounceWord('${
+                      word.word
+                    }')" class=" bg-[#1A91FF10] hover:bg-[#1A91FF80] p-4 rounded-sm"><i class="fa-solid fa-volume-high"></i></button>
                 </div>
             </div>
     `;
